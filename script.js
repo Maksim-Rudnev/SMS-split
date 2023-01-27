@@ -72,7 +72,5 @@ if(text.trim().length) {
   }
 
   if(arrChanks.length <= 9999) arrChanks.forEach(el => console.log(el + ' - ' + el.length));
-  if(arrChanks.every(el => el.length > 140)) console.log('Превышен лимит объема фрагмента!');
+  if(arrChanks.every(el => el.length > limit)) console.log('Превышен лимит объема фрагмента!');
 } else console.log('Вы ничего не ввели.');
-  
-// console.log('Результат:',arrChanks);
