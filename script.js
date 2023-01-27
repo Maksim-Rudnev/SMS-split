@@ -29,40 +29,51 @@ function lengthWithPreFix(chank) {
   return dopLength;
 }
 
-const textLengthWithSpaceSlashRez = textLengthWithSpaceSlash(text);
-const lengthWithPostFixRez = lengthWithPostFix(textLengthWithSpaceSlashRez);
-const lengthWithPreFixRez = lengthWithPreFix(Math.ceil(lengthWithPostFixRez / limit));
+if(text.trim().length) {
+  const textLengthWithSpaceSlashRez = textLengthWithSpaceSlash(text);
+  const lengthWithPostFixRez = lengthWithPostFix(textLengthWithSpaceSlashRez);
+  const lengthWithPreFixRez = lengthWithPreFix(Math.ceil(lengthWithPostFixRez / limit));
 
-let estimatedNumberChank =  (Math.ceil((lengthWithPostFixRez + lengthWithPreFixRez) / limit));
-let arrChanks = [];
-
-while(true) {
-
+  let estimatedNumberChank =  (Math.ceil((lengthWithPostFixRez + lengthWithPreFixRez) / limit));
+  let arrChanks = [];
   let arrWord = text.split(' ');
-  let k = 1;
-  arrChanks = [];
-  while(arrWord.length) {
 
-    let limitContent = limit - 1 -numberDigit(k) - numberDigit(estimatedNumberChank);
-    let tempStr = '';
+  console.log(estimatedNumberChank);
+  if(estimatedNumberChank === 1) {
+    arrChanks.push(arrWord.join(' '));
+  }
+  else {
+    while(true) {
+      arrWord = text.split(' ');
+      let k = 1;
+      arrChanks = [];
+      while(arrWord.length) {
     
-    while(arrWord.length && limitContent > tempStr.length + arrWord[0].length) tempStr += arrWord.shift() + ' ';
-    tempStr += `${k}/${estimatedNumberChank}`;
-    arrChanks.push(tempStr);
-    k += 1;
-
+        let limitContent = limit - 1 -numberDigit(k) - numberDigit(estimatedNumberChank);
+        let tempStr = '';
+        
+        while(arrWord.length && limitContent > tempStr.length + arrWord[0].length) tempStr += arrWord.shift() + ' ';
+        tempStr += `${k}/${estimatedNumberChank}`;
+        arrChanks.push(tempStr);
+        k += 1;
+    
+      }
+    
+      if(arrChanks.length > 9999) {
+        console.log('Превышенно допустимое количество фрагментов!');
+        break;
+      } 
+      else if (arrChanks.length === estimatedNumberChank) break;
+      else if (numberDigit(arrChanks.length) === numberDigit(estimatedNumberChank)) {
+        arrChanks = arrChanks.map((el) => el.replace(estimatedNumberChank,arrChanks.length));
+        break;
+      } 
+      else estimatedNumberChank = arrChanks.length;
+    }
   }
 
-  if(arrChanks.length > 9999) {
-    console.log('Превышенно допустимое количество фрагментов!');
-    break;
-  } 
-  else if (arrChanks.length === estimatedNumberChank) break;
-  else if (numberDigit(arrChanks.length) === numberDigit(estimatedNumberChank)) {
-    arrChanks = arrChanks.map((el) => el.replace(estimatedNumberChank,arrChanks.length));
-    break;
-  } 
-  else estimatedNumberChank = arrChanks.length;
-}
-if(arrChanks.length <= 9999)console.log('Результат:',arrChanks);
 
+  if(arrChanks.length <= 9999) arrChanks.forEach(el => console.log(el + ' - ' + el.length));
+} else console.log('Вы ничего не ввели.');
+  
+// console.log('Результат:',arrChanks);
