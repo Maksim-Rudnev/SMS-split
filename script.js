@@ -37,8 +37,7 @@ if(text.trim().length) {
   let estimatedNumberChank =  (Math.ceil((lengthWithPostFixRez + lengthWithPreFixRez) / limit));
   let arrChanks = [];
   let arrWord = text.split(' ');
-
-  console.log(estimatedNumberChank);
+  if(arrWord.length === 1 && text.length > 136) estimatedNumberChank = 1;
   if(estimatedNumberChank === 1) {
     arrChanks.push(arrWord.join(' '));
   }
@@ -72,8 +71,8 @@ if(text.trim().length) {
     }
   }
 
-
   if(arrChanks.length <= 9999) arrChanks.forEach(el => console.log(el + ' - ' + el.length));
+  if(arrChanks.every(el => el.length > 140)) console.log('Превышен лимит объема фрагмента!');
 } else console.log('Вы ничего не ввели.');
   
 // console.log('Результат:',arrChanks);
