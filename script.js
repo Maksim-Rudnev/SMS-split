@@ -46,20 +46,23 @@ while(true) {
     let limitContent = limit - 1 -numberDigit(k) - numberDigit(estimatedNumberChank);
     let tempStr = '';
     
-    while(arrWord.length && limitContent > tempStr.length + arrWord[0].length) {
-      tempStr += arrWord.shift() + ' ';
-    }
+    while(arrWord.length && limitContent > tempStr.length + arrWord[0].length) tempStr += arrWord.shift() + ' ';
     tempStr += `${k}/${estimatedNumberChank}`;
     arrChanks.push(tempStr);
     k += 1;
+
   }
 
-  if(arrChanks.length === estimatedNumberChank) break;
-  else if(numberDigit(arrChanks.length) === numberDigit(estimatedNumberChank)) {
-    console.log(123);
+  if(arrChanks.length > 9999) {
+    console.log('Превышенно допустимое количество фрагментов!');
+    break;
+  } 
+  else if (arrChanks.length === estimatedNumberChank) break;
+  else if (numberDigit(arrChanks.length) === numberDigit(estimatedNumberChank)) {
     arrChanks = arrChanks.map((el) => el.replace(estimatedNumberChank,arrChanks.length));
     break;
-  } else estimatedNumberChank = arrChanks.length;
+  } 
+  else estimatedNumberChank = arrChanks.length;
 }
+if(arrChanks.length <= 9999)console.log('Результат:',arrChanks);
 
-arrChanks.forEach((el) => console.log(el + ' - ' + el.length));
