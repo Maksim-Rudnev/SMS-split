@@ -45,7 +45,7 @@ function breakTextIntoChunks() {
     }
     else {
       while(true) {
-        arrayWord = text.split(' ');
+        arrayWord = text.split(' ').reverse();
         let k = 1;
         arrayChanks = [];
         while(arrayWord.length) {
@@ -53,7 +53,7 @@ function breakTextIntoChunks() {
           let limitContent = limit - 1 -getNumberDigit(k) - getNumberDigit(estimatedNumberChank);
           let tempStr = '';
           
-          while(arrayWord.length && limitContent > tempStr.length + arrayWord[0].length) tempStr += arrayWord.shift() + ' ';
+          while(arrayWord.length && limitContent > tempStr.length + arrayWord.at(-1).length) tempStr += arrayWord.pop() + ' ';
           tempStr += `${k}/${estimatedNumberChank}`;
           arrayChanks.push(tempStr);
           k += 1;
